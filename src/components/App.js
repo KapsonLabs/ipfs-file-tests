@@ -4,7 +4,7 @@ import './App.css';
 import { read } from 'fs';
 
 const ipfsClient = require('ipfs-http-client')
-const ipfs = ipfsClient({'host': 'ipfs.infura.io', 'port': 5001, 'protocol': 'https'})
+const ipfs = ipfsClient({host: 'ipfs.infura.io', port: 5001, protocol: 'https'})
 
 class App extends Component {
 
@@ -29,6 +29,13 @@ class App extends Component {
   onSubmit = (event) => {
     event.preventDefault();
     console.log("submitting file.....")
+    ipfs.add(this.state.buffer, (error, result) => {
+      console.log("Ipfs result", result)
+      if(error) {
+        console.error(error)
+        return
+      }
+    })
   }
 
   render() {
